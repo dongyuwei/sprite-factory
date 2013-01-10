@@ -1,5 +1,10 @@
- ** my fork add diagonal layout(from bottom-left to top-right) **
- ** 我的fork 增加了对角线布局: 能生成从左下到右上排列小图标的css sprite ** 
+New!!!!!!
+=======================
+**DongYuwei's fork add diagonal layout(position small icons from bottom-left to top-right)**
+ ```
+ :layout => :diagonal
+ ```
+ 
  <img src="https://raw.github.com/dongyuwei/sprite-factory/master/test/layout/diagonal_layout.png">
 
 Sprite Factory (v1.5.1)
