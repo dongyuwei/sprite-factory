@@ -3,15 +3,18 @@ module SpriteFactory
 		# **diagonal layout** : from `bottom-left` to `top-right`
 		module Diagonal
 			def self.layout(images, options = {})
-				total_width = images.inject(0) {|sum, img| sum + img[:width]}
-				total_height = images.inject(0) {|sum, img| sum + img[:height]}
+				hmargin    = options[:hmargin]  || 0
+				vmargin    = options[:vmargin]  || 0
+
+				total_width  = (images.length + 1) * hmargin + images.inject(0) {|sum, img| sum + img[:width]}
+				total_height = (images.length + 1) * vmargin + images.inject(0) {|sum, img| sum + img[:height]}
 
 				previous = nil
 				images.each do |image|
 					if previous.nil?
 						previous = image
-						image[:y] = total_height - image[:height]
-						image[:x] = 0
+						image[:y] = total_height - image[:height] - vmargin
+						image[:x] = 0 + hmargin
 
 						image[:cssw] = image[:width]
 						image[:cssh] = image[:height]
@@ -21,8 +24,8 @@ module SpriteFactory
 
 						next
 					end
-					image[:y] = previous[:y] - image[:height]
-					image[:x] = previous[:x] + previous[:width]
+					image[:y] = previous[:y] - image[:height] - vmargin 
+					image[:x] = previous[:x] + previous[:width] + hmargin
 					
 					image[:cssw] = image[:width]
 					image[:cssh] = image[:height]

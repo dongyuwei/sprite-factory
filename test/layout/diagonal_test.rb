@@ -4,13 +4,12 @@ require 'sprite_factory.rb'
 
 SpriteFactory.run!('../images/regular',{
 	:layout => :diagonal,
+	:margin => 10,
 
 	:selector => '.sprite_',
 	:output_image => '/tmp/sprite.png',
-	:output_style => '/tmp/sprite.css',
+	:output_style => '/tmp/sprite.css'
 	
 	# :library => :chunkypng,
-	# :pngcrush => true,
-
-	# :margin => 1
+	# :pngcrush => true
 })
