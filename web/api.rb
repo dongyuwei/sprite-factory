@@ -1,11 +1,8 @@
 require 'rubygems'
 require 'fileutils'
 require 'tmpdir'
-
 require 'sinatra'
-
-$: << File.expand_path(File.dirname(__FILE__) + '../../lib')
-require 'sprite_factory.rb'
+require File.expand_path('../lib/sprite_factory', File.dirname(__FILE__))
 
 set :public_folder, File.dirname(__FILE__) + '/view'
 
