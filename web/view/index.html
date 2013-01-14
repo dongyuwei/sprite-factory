@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            css sprite builder
+        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+        name="viewport">
+        <meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <link rel="stylesheet" type="text/css" href="bootstrap.css">
+    </head>
+    <body>
+        <form class="form-horizontal" method='POST' action='/' enctype='multipart/form-data'>
+            <fieldset>
+                <legend>
+                    css sprite builder
+                </legend>
+                <div class="control-group">
+                    <label class="control-label" for="images[]">
+                        images
+                    </label>
+                    <div class="controls">
+                        <input type="file" name='images[]' multiple required>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="layout">
+                        layout
+                    </label>
+                    <div class="controls">
+                        <select name='layout' required>
+                            <option value='diagonal'>
+                                对角线排列
+                            </option>
+                            <option value='horizontal'>
+                                水平排列 
+                            </option>
+                            <option value='vertical'>
+                                垂直排列 
+                            </option>
+                            <option value='packed'>
+                                智能(空间最小)排列
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="margin">
+                        margin
+                    </label>
+                    <div class="controls">
+                        <input  name='margin' placeholder="0" pattern='\d*'>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                         <button type="submit" class="btn">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </body>
+</html>
