@@ -1,9 +1,25 @@
 New!!!!!!
 =======================
-**DongYuwei's fork add diagonal layout(position small icons from bottom-left to top-right)**
- ```
- :layout => :diagonal
- ```
+1. my fork added **diagonal layout** (position small icons from bottom-left to top-right)
+2. the `web/api.rb` is a sinatra web app, which wraps the SpriteFactory api.
+
+```
+#see test/layout/diagonal_test.rb
+$: << '../../lib'
+require 'rubygems'
+require 'sprite_factory.rb'
+
+SpriteFactory.run!('../images/regular',{
+ :layout => :diagonal,
+	:margin => 10,
+
+	:selector => '.sprite-',
+	:output_image => '/tmp/sprite.png',
+	:output_style => '/tmp/sprite.css',
+ 
+	:pngcrush => true
+})
+```
  
  <img src="https://raw.github.com/dongyuwei/sprite-factory/master/test/layout/diagonal_layout.png">
 
