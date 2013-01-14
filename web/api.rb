@@ -1,8 +1,10 @@
 require 'rubygems'
 require 'fileutils'
+require 'tmpdir'
+
 require 'sinatra'
 
-$: << '../lib'
+$: << File.expand_path(File.dirname(__FILE__) + '../../lib')
 require 'sprite_factory.rb'
 
 set :public_folder, File.dirname(__FILE__) + '/view'
@@ -12,42 +14,39 @@ get '/' do
 end
 
 post '/' do
-	FileUtils.rm_rf('/tmp/_sprite_/')
-	FileUtils.mkdir_p('/tmp/_sprite_/')
+	tmp_dir = Dir.mktmpdir
 
 	params[:images].each do|img|
-		File.open('/tmp/_sprite_/' + img[:filename], "w") do |f|
+		File.open(tmp_dir + '/' + img[:filename], "w") do |f|
 			f.write(img[:tempfile].read)
 		end
 	end
-	puts  params[:layout],params[:margin].to_i,params[:margin].to_i || 0
-	SpriteFactory.run!('/tmp/_sprite_/',{
+
+	SpriteFactory.run!(tmp_dir,{
 		:layout => params[:layout] || :diagonal,
 		:margin => params[:margin].to_i || 0,
 
 		:selector => '.sprite-',
-		:output_image => '/tmp/sprite.png',
-		:output_style => '/tmp/sprite.css',
+		:output_image => tmp_dir + '/sprite.png',
+		:output_style => tmp_dir + '/sprite.css',
 
-		# :library => :chunkypng,
+		:library => :chunkypng,
 		:pngcrush => true
 	})
 
-	FileUtils.rm_rf('/tmp/_sprite_/')
-	FileUtils.mkdir_p('/tmp/_sprite_/')
+	system("cd #{tmp_dir} && zip sprite.zip sprite.png sprite.css")
 
-	FileUtils.mv('/tmp/sprite.png','/tmp/_sprite_/sprite.png')
-	FileUtils.mv('/tmp/sprite.css','/tmp/_sprite_/sprite.css')
-
-	FileUtils.rm_rf('/tmp/sprite.zip')
-
-	system('cd /tmp/_sprite_/ && zip -r sprite.zip ./* ')
-
-	redirect '/download/sprite.zip'
+	redirect "/download?dir=#{tmp_dir}&file=#{tmp_dir}/sprite.zip"
 end
 
-get '/download/sprite.zip' do 
-	send_file "/tmp/_sprite_/sprite.zip", :filename => 'sprite.zip', :type => 'Application/octet-stream'
+after '/download' do 
+	Thread.new do
+		sleep 20
+		FileUtils.rm_rf("#{params[:dir]}")
+		puts "rm -rf #{params[:dir]}"
+	end
+end
 
-	FileUtils.rm_rf('/tmp/_sprite_/')
+get '/download' do 
+	send_file "#{params[:file]}", :filename => 'sprite.zip', :type => 'Application/octet-stream'
 end
