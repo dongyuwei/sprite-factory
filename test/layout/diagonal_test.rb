@@ -6,10 +6,9 @@ SpriteFactory.run!('../images/regular',{
 	:layout => :diagonal,
 	:margin => 10,
 
-	:selector => '.sprite_',
+	:selector => '.sprite-',
 	:output_image => '/tmp/sprite.png',
-	:output_style => '/tmp/sprite.css'
+	:output_style => '/tmp/sprite.css',
 	
-	# :library => :chunkypng,
-	# :pngcrush => true
+	:pngcrush => true
 })
