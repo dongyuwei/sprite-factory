@@ -1,8 +1,7 @@
-$: << '../../lib'
 require 'rubygems'
-require 'sprite_factory.rb'
+require File.expand_path('../../lib/sprite_factory', File.dirname(__FILE__))
 
-SpriteFactory.run!('../images/regular',{
+SpriteFactory.run!(File.expand_path('../images/regular', File.dirname(__FILE__)),{
 	:layout => :diagonal,
 	:margin => 10,
 
