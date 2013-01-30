@@ -19,26 +19,31 @@ post '/' do
 		end
 	end
 
+	file_name = (params[:filename].empty? ) ? 'sprite' : params[:filename]
+	css_path = (params[:csspath].empty?) ? nil : params[:csspath]
+	
 	SpriteFactory.run!(tmp_dir,{
 		:layout => params[:layout] || :diagonal,
-		:margin => params[:margin].to_i || 0,
+		:margin => params[:margin].to_i || 5,
+		:csspath => css_path,
 
-		:selector => '.sprite-',
-		:output_image => tmp_dir + '/sprite.png',
-		:output_style => tmp_dir + '/sprite.css',
+		:selector => '.icon-',
+		:output_image => tmp_dir + '/' + file_name + '.png',
+		:output_style => tmp_dir + '/' + file_name + '.css',
+
 
 		:library => :chunkypng,
 		:pngcrush => true
 	})
 
-	system("cd #{tmp_dir} && zip sprite.zip sprite.png sprite.css")
+	system("cd #{tmp_dir} && zip #{file_name}.zip #{file_name}.png #{file_name}.css")
 
-	redirect "/download?dir=#{tmp_dir}&file=#{tmp_dir}/sprite.zip"
+	redirect "/download?dir=#{tmp_dir}&file=#{tmp_dir}/#{file_name}.zip"
 end
 
 after '/download' do 
 	Thread.new do
-		sleep 20
+		sleep 50
 		FileUtils.rm_rf("#{params[:dir]}")
 		puts "rm -rf #{params[:dir]}"
 	end
