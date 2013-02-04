@@ -29,14 +29,14 @@ post '/' do
 
 		:selector => '.icon-',
 		:output_image => tmp_dir + '/' + file_name + '.png',
-		:output_style => tmp_dir + '/' + file_name + '.css',
+		:output_style => tmp_dir + '/' + file_name + '.less',
 
 
 		:library => :chunkypng,
 		:pngcrush => true
 	})
 
-	system("cd #{tmp_dir} && zip #{file_name}.zip #{file_name}.png #{file_name}.css")
+	system("cd #{tmp_dir} && zip #{file_name}.zip #{file_name}.png #{file_name}.less")
 
 	redirect "/download?dir=#{tmp_dir}&file=#{tmp_dir}/#{file_name}.zip"
 end
