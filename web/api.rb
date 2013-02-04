@@ -32,7 +32,7 @@ post '/' do
 		:output_style => tmp_dir + '/' + file_name + '.less',
 
 
-		:library => :chunkypng,
+		:library => :rmagick,
 		:pngcrush => true
 	})
 
