@@ -49,8 +49,8 @@ module SpriteFactory
       styles = []
       images.each do |image|
         attr = [
-          # "width: #{image[:cssw]}px",
-          # "height: #{image[:cssh]}px",
+          "width: #{image[:cssw]}px",
+          "height: #{image[:cssh]}px",
           "background: url(#{path}) #{-image[:cssx]}px #{-image[:cssy]}px no-repeat"
         ]
         image[:path] = path

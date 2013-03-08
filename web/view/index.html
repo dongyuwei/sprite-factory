@@ -9,16 +9,25 @@
         name="viewport">
         <meta content="black" name="apple-mobile-web-app-status-bar-style">
         <link rel="stylesheet" type="text/css" href="bootstrap.css">
+        <style>
+            form{
+                margin-left: 40%;
+            }
+            .required{
+                color:red;
+                margin-right:3px;
+            }
+        </style>
     </head>
     <body>
-        <form class="form-horizontal" method='POST' action='/' enctype='multipart/form-data'>
+        <form  method='POST' action='/' enctype='multipart/form-data'>
             <fieldset>
                 <legend>
                     css sprite builder
                 </legend>
                 <div class="control-group">
                     <label class="control-label" for="images[]">
-                        images
+                        <span class="required" title='required'>*</span>images
                     </label>
                     <div class="controls">
                         <input type="file" name='images[]' multiple required>
@@ -26,7 +35,7 @@
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="layout">
-                        layout
+                        <span class="required" title='required'>*</span>layout
                     </label>
                     <div class="controls">
                         <select name='layout' required>
@@ -48,27 +57,35 @@
 
                 <div class="control-group">
                     <label class="control-label" for="filename">
-                        file name
+                        file name(default: sprite)
                     </label>
                     <div class="controls">
-                        <input  name='filename' placeholder="sprite">
+                        <input  name='filename'>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="margin">
-                        margin
+                        margin(default: 5)
                     </label>
                     <div class="controls">
-                        <input  name='margin' placeholder="5" value='5' disabled pattern='\d*'>
+                        <input  name='margin' value='5' disabled pattern='\d*'>
                     </div>
                 </div>
                  <div class="control-group">
                     <label class="control-label" for="csspath">
-                        csspath
+                        csspath(default: ../../img/)
                     </label>
                     <div class="controls">
-                        <input  name='csspath' placeholder="../../img/">
+                        <input  name='csspath'>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="csspath">
+                        css selector(default: .litb-icon- )
+                    </label>
+                    <div class="controls">
+                        <input  name='selector'>
                     </div>
                 </div>
                 <div class="control-group">

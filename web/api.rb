@@ -20,21 +20,20 @@ post '/' do
 	end
 
 	file_name = (params[:filename].empty? ) ? 'sprite' : params[:filename]
-	css_path = (params[:csspath].empty?) ? nil : params[:csspath]
-	
-	SpriteFactory.run!(tmp_dir,{
-		:layout => params[:layout] || :diagonal,
-		:margin => params[:margin].to_i || 5,
-		:csspath => css_path,
-
-		:selector => '.icon-',
+	config = {
+		:layout => (params[:layout].empty?) ? :diagonal : params[:layout],
+		:margin => 5,
+		:csspath => (params[:csspath].empty?) ? nil : params[:csspath],
+		:selector => (params[:selector].empty?) ? '.litb-icon-' : params[:selector],
+		
 		:output_image => tmp_dir + '/' + file_name + '.png',
 		:output_style => tmp_dir + '/' + file_name + '.less',
 
-
 		:library => :rmagick,
 		:pngcrush => true
-	})
+	}
+
+	SpriteFactory.run!(tmp_dir,config)
 
 	system("cd #{tmp_dir} && zip #{file_name}.zip #{file_name}.png #{file_name}.less")
 
