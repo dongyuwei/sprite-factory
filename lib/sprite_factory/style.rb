@@ -48,11 +48,17 @@ module SpriteFactory
     def self.generate(style_name, selector, path, images)
       styles = []
       images.each do |image|
-        attr = [
-          "width: #{image[:cssw]}px",
-          "height: #{image[:cssh]}px",
-          "background: url(#{path}) #{-image[:cssx]}px #{-image[:cssy]}px no-repeat"
-        ]
+        if image[:filename].index("--hover")
+          attr = [
+            "background-position: #{-image[:cssx]}px #{-image[:cssy]}px"
+          ]
+        else
+          attr = [
+            "width: #{image[:cssw]}px",
+            "height: #{image[:cssh]}px",
+            "background: url(#{path}) #{-image[:cssx]}px #{-image[:cssy]}px no-repeat"
+          ]
+        end
         image[:path] = path
         image[:selector] = selector
         image[:style] = send("#{style_name}_style", attr) # make pure style available for (optional) custom rule generators (see usage of yield inside Runner#style)
