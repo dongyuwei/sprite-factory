@@ -24,13 +24,14 @@ post '/' do
 		:layout => (params[:layout].empty?) ? :diagonal : params[:layout],
 		:margin => 5,
 		:csspath => (params[:csspath].empty?) ? nil : params[:csspath],
-		:selector => (params[:selector].empty?) ? '.litb-icon-' : params[:selector],
+		:selector => (params[:selector].empty?) ? '.' : params[:selector],
 		
 		:output_image => tmp_dir + '/' + file_name + '.png',
 		:output_style => tmp_dir + '/' + file_name + '.less',
 
 		:library => :rmagick,
-		:pngcrush => true
+		:pngcrush => true,
+		:nocomments => true
 	}
 
 	SpriteFactory.run!(tmp_dir,config)
